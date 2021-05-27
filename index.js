@@ -1,11 +1,11 @@
 const express = require( 'express');
 
-const PORT = 8080;
+const PORT = 3000;
 const app = express();
 
 app.get('/' , function(req , res){
   console.log(req.url)
-  return res.send('<h1> .lastMomentNotes </h1>')
+  return res.send('<h1> lastMomentNotes </h1>')
 })
 
 
