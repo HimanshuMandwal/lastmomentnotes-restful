@@ -5,10 +5,13 @@ const auth = require('./routes/auth');
 const config = require('config');
 const PORT = 3000;
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
 
-if(!config.get('jwtPrivateKey'))
+if(!config.get('JWTPRIVATEKEY'))
 {console.error('jwtPrivateKey not set:(');
-//process.exit(1);
+//console.log(`${process.env.JWTPRIVATEKEY }`);
+process.exit(1);
 }
 mongoose.connect('mongodb://localhost/lastmomentnotes')
 .then(()=>console.log('Connected to DB......Cheers:)'))
