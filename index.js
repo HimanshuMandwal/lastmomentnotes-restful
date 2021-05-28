@@ -10,7 +10,6 @@ dotenv.config();
 
 if(!config.get('JWTPRIVATEKEY'))
 {console.error('jwtPrivateKey not set:(');
-//console.log(`${process.env.JWTPRIVATEKEY }`);
 process.exit(1);
 }
 mongoose.connect('mongodb://localhost/lastmomentnotes')
