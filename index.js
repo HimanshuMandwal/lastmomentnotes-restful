@@ -1,14 +1,30 @@
 const express = require( 'express');
-
-const PORT = 8080;
+const  mongoose  = require('mongoose');
+const users = require('./routes/users');
+const auth = require('./routes/auth');
+const config = require('config');
+const PORT = 3000;
 const app = express();
+require('express-async-errors');
+const dotenv = require('dotenv');
+dotenv.config();
 
-app.get('/' , function(req , res){
-  console.log(req.url)
-  return res.send('<h1> .lastMomentNotes </h1>')
-})
+if(!config.get('JWTPRIVATEKEY'))
+{console.error('jwtPrivateKey not set:(');
+process.exit(1);
+}
+mongoose.connect('mongodb://localhost/lastmomentnotes')
+.then(()=>console.log('Connected to DB......Cheers:)'))
+.catch(err=>console.log('Could Not connect to DB '+err));
+
+app.use(express.json());
+app.use('/api/users',users);
+app.use('/api/auth',auth);
 
 
+app.use(function(err,req,res,next){
+  res.status(500).send('Something Faileed');
+});
 
 app.listen(PORT , function(err){
   if(err){
