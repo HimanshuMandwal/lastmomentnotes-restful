@@ -5,6 +5,7 @@ const auth = require('./routes/auth');
 const config = require('config');
 const PORT = 3000;
 const app = express();
+require('express-async-errors');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -20,6 +21,10 @@ app.use(express.json());
 app.use('/api/users',users);
 app.use('/api/auth',auth);
 
+
+app.use(function(err,req,res,next){
+  res.status(500).send('Something Faileed');
+});
 
 app.listen(PORT , function(err){
   if(err){
